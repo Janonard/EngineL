@@ -275,7 +275,7 @@ class Entity(QObject):
         if len(inventory_list) > 0:
             return self.get_raw_description() + " " + inventory_list + "."
         else:
-            return self.get_raw_description()
+            return self.get_raw_description() + "."
 
     def generate_inventory_list(self, empty_note=False):
         """
@@ -293,14 +293,14 @@ class Entity(QObject):
         try:
             if len(children) == 0:
                 if empty_note:
-                    return " " + self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
+                    return ". " + self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
                 else:
                     return str()
 
             if self.is_place:
-                inventory_list = " " + string_key_root + "placeBeginning} "
+                inventory_list = ". " + string_key_root + "placeBeginning} "
             else:
-                inventory_list = " " + self.get_pronoun(True) + " "
+                inventory_list = ". " + self.get_pronoun(True) + " "
                 inventory_list += string_key_root + "entityBeginning} "
             inventory_list += children[0].get_effective_article() + " "
             inventory_list += "<b>" + children[0].objectName() + "</b>"
