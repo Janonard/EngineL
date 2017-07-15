@@ -16,11 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import sys
-import Source
+import Test
 
-def test_simple_launch():
+def test_startup():
     """
     This test starts the game and looks if it works.
     """
-    game_instance = Source.Game(sys.argv)
+    print("HI!")
+    game_instance = Test.SimpleTester.StartTestApp(sys.argv)
     assert not bool(game_instance.exec_())

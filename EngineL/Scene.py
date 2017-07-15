@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 from xml.etree import ElementTree
 from PyQt5.QtCore import Qt, QObject, QCoreApplication, QEvent, pyqtSignal
-from Source.EngineL import Core
+from EngineL import Core
 
 class XMLScene(QObject):
     """

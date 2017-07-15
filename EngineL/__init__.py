@@ -17,6 +17,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import Source.EngineL.Core
-import Source.EngineL.Gameplay
-import Source.EngineL.Scene
+import EngineL.Core
+import EngineL.Gameplay
+import EngineL.Scene

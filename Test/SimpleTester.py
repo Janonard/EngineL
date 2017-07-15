@@ -1,6 +1,5 @@
-# coding=UTF-8
 """
-Game Source Module
+Resources for the simple tests.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -17,24 +16,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-import Source.EngineL
+import EngineL.Core
+import EngineL.Gameplay
+from PyQt5.QtCore import QTimer
 
-class Game(Source.EngineL.Core.SinglePlayerApp):
+class StartTestApp(EngineL.Core.SinglePlayerApp):
     """
-    EngineL Game Class
+    This test starts up the game and closes it after a second.
     """
     def __init__(self, argv):
-        Source.EngineL.Core.SinglePlayerApp.__init__(self, argv)
+        EngineL.Core.SinglePlayerApp.__init__(self, argv)
 
-        try:
-            Source.EngineL.Gameplay.register_entity_classes(self)
+        EngineL.Gameplay.register_entity_classes(self)
 
-            self.restore_world()
-
-            self.connect_places()
-        except Exception as err:
-            self.crash(str(err))
-
-        for child in self.children():
-            if issubclass(child.__class__, Source.EngineL.Core.Entity):
-                child.on_game_launched()
+        self.timer = QTimer(self)
+        self.timer.setInterval(1000)
+        self.timer.timeout.connect(self.quit)
+        self.timer.start()
