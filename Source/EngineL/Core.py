@@ -293,14 +293,14 @@ class Entity(QObject):
         try:
             if len(children) == 0:
                 if empty_note:
-                    return self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
+                    return " " + self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
                 else:
                     return str()
 
             if self.is_place:
-                inventory_list = string_key_root + "placeBeginning} "
+                inventory_list = " " + string_key_root + "placeBeginning} "
             else:
-                inventory_list = self.get_pronoun(True) + " "
+                inventory_list = " " + self.get_pronoun(True) + " "
                 inventory_list += string_key_root + "entityBeginning} "
             inventory_list += children[0].get_effective_article() + " "
             inventory_list += "<b>" + children[0].objectName() + "</b>"
@@ -692,7 +692,7 @@ class Place(Entity):
         self.connect_place(place)
 
     def generate_description(self):
-        desc = self.description + " " + self.generate_inventory_list()
+        desc = self.description + self.generate_inventory_list()
         desc += self.generate_exit_list() + "."
         return desc
 

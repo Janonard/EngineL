@@ -3,8 +3,6 @@
 This is the collection of all strings used in the game.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
-Copyright (C) 2017 David "Flummi3" Waelsch
-Copyright (C) 2017 Jason "Janonard" Becker
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,118 +16,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <safe>
-    <Place name="${game.places.alcove.name}" description="${game.places.alcove.description}" gender="m">
+    <Place name="Ort" description="Ein Ort" gender="m">
         <children>
-            <StaticEntity name="${game.places.alcove.hammock.name}" description="${game.places.alcove.hammock.description}" gender="f"/>
-            <StaticEntity name="${game.places.alcove.window.name}" description="${game.places.alcove.window.description}" gender="n"/>
-            <StaticEntity name="${game.places.alcove.mirror.name}" description="${game.places.alcove.mirror.description}" gender="m"/>
-            <Player>
-                <children>
-                    <Stopper name="${game.places.alcove.stopper.name}" description="${game.places.alcove.stopper.description}" gender="m"/>
-                </children>
-            </Player>
+            <Player />
         </children>
-        <state key="visited" value="1"/>
-        <connection name="${game.places.hut.name}"/>
-    </Place>
-    <Place name="${game.places.hut.name}" description="${game.places.hut.description}" gender="f">
-        <children>
-            <HoleInRoof name="${game.places.hut.hole.name}" description="${game.places.hut.hole.description}" gender="n"/>
-            <Oven name="${game.places.hut.oven.name}" description="${game.places.hut.oven.description}" gender="m"/>
-            <Sofa name="${game.places.hut.sofa.name}" description="${game.places.hut.sofa.description}" gender="n"/>
-            <Toast name="${game.places.hut.toast.name}" description="${game.places.hut.toast.description}" gender="m"/>
-        </children>
-        <connection name="${game.places.alcove.name}"/>
-        <connection name="${game.places.yard.name}"/>
-    </Place>
-    <Place name="${game.places.yard.name}" description="${game.places.yard.description}" gender="m">
-        <children>
-            <Wood name="${game.places.yard.wood.name}" description="${game.places.yard.wood.description}" gender="n"/>
-            <StaticEntity name="${game.places.yard.scrapHeap.name}" description="${game.places.yard.scrapHeap.description}" gender="m">
-                <children>
-                    <Entity name="${game.places.yard.mysteriousFind.name}" description="${game.places.yard.mysteriousFind.description}" gender="n"/>
-                </children>
-            </StaticEntity>
-            <Signpost />
-        </children>
-        <connection name="${game.places.hut.name}"/>
-        <connection name="${game.places.roadToIvy.name}"/>
-    </Place>
-    <RoadToIvy name="${game.places.roadToIvy.name}" description="${game.places.roadToIvy.description}" gender="m">
-        <connection name="${game.places.yard.name}"/>
-        <connection name="${game.places.village.name}"/>
-    </RoadToIvy>
-    <Village name="${game.places.village.name}" description="${game.places.village.description}" gender="n">
-        <children>
-            <StaticEntity name="${game.places.village.well.name}" description="${game.places.village.well.description}" gender="m" />
-            <GerritsHouse name="${game.places.village.geraltsHouse.name}" description="${game.places.village.geraltsHouse.description}" />
-            <House1 name="${game.places.village.house1.name}" description="${game.places.village.house1.description}" />
-            <House2 name="${game.places.village.house2.name}" description="${game.places.village.house2.description}" />
-            <House3 name="${game.places.village.house3.name}" description="${game.places.village.house3.description}" />
-        </children>
-        <connection name="${game.places.roadToIvy.name}"/>
-        <connection name="${game.places.roadToHabour.name}"/>
-        <connection name="${game.places.field.name}"/>
-        <connection name="${game.places.westSlope.name}"/>
-    </Village>
-    <RoadToHabour name="${game.places.roadToHabour.name}" description="${game.places.roadToHabour.description}" gender="m">
-        <connection name="${game.places.village.name}"/>
-        <connection name="${game.places.habour.name}"/>
-    </RoadToHabour>
-    <Habour name="${game.places.habour.name}" description="${game.places.habour.description}" gender="m">
-        <children>
-            <StaticEntity name="${game.places.habour.crane.name}" description="${game.places.habour.crane.description}" gender="m" />
-            <StaticEntity name="${game.places.habour.junkpile.name}" description="${game.places.habour.junkpile.description}" gender="m" />
-            <StaticEntity name="${game.places.habour.oldBoat.name}" description="${game.places.habour.oldBoat.description}" gender="n" />
-            <StaticEntity name="${game.places.habour.ocean.name}" description="${game.places.habour.ocean.description}" gender="n">
-                <article definite="True"/>
-            </StaticEntity>
-            <StaticEntity name="${game.places.habour.landingStage.name}" description="${game.places.habour.landingStage.description}" gender="m" />
-            <StaticEntity name="${game.places.habour.container.name}" description="${game.places.habour.container.description}" gender="m" />
-            <HabourWall name="${game.places.habour.wall.name}" description="${game.places.habour.wall.description}" gender="f" />
-        </children>
-        <connection name="${game.places.roadToHabour.name}"/>
-    </Habour>
-    <Place name="${game.places.field.name}" description="${game.places.field.description}" gender="n">
-        <children>
-            <StaticEntity name="${game.places.field.bed1.name}" description="${game.places.field.bed1.description}" gender="n" />
-            <StaticEntity name="${game.places.field.bed2.name}" description="${game.places.field.bed2.description}" gender="n">
-                <children>
-                    <Rungs />
-                </children>
-            </StaticEntity>
-            <StaticEntity name="${game.places.field.bed3.name}" description="${game.places.field.bed3.description}" gender="n" />
-            <StaticEntity name="${game.places.field.bed4.name}" description="${game.places.field.bed4.description}" gender="n">
-                <children>
-                    <Stringers />
-                </children>
-            </StaticEntity>
-            <StaticEntity name="${game.places.field.compostBin.name}" description="${game.places.field.compostBin.description}" gender="n" />
-        </children>
-        <connection name="${game.places.village.name}"/>
-    </Place>
-    <Place name="${game.places.westSlope.name}" description="${game.places.westSlope.description}" gender="m">
-        <children>
-            <StaticEntity name="${game.places.westSlope.junkpile.name}" description="${game.places.westSlope.junkpile.description}" gender="m" />
-        </children>
-        <connection name="${game.places.village.name}"/>
-        <connection name="${game.places.mountainTop.name}"/>
-    </Place>
-    <Place name="${game.places.mountainTop.name}" description="${game.places.mountainTop.description}" gender="f">
-        <children>
-            <StaticEntity name="${game.places.mountainTop.junkpile.name}" description="${game.places.mountainTop.junkpile.description}" gender="m" />
-        </children>
-        <connection name="${game.places.westSlope.name}"/>
-        <connection name="${game.places.eastSlope.name}"/>
-    </Place>
-    <Place name="${game.places.eastSlope.name}" description="${game.places.eastSlope.description}" gender="m">
-        <children>
-            <CoveredFountain name="${game.places.eastSlope.junkpile.name}" description="${game.places.eastSlope.junkpile.description}" gender="m" >
-                <children>
-                    <LadderTool />
-                </children>
-            </CoveredFountain>
-        </children>
-        <connection name="${game.places.mountainTop.name}"/>
     </Place>
 </safe>

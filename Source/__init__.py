@@ -1,6 +1,6 @@
 # coding=UTF-8
 """
-ProjectL Source Module
+Game Source Module
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 
@@ -18,14 +18,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Source.EngineL
-import Source.Habour
-import Source.Hut
-import Source.Ladder
-import Source.Minigame
-import Source.Mountain
-import Source.Roads
-import Source.Village
-import Source.WindTurbine
 
 class Game(Source.EngineL.Core.SinglePlayerApp):
     """
@@ -36,15 +28,6 @@ class Game(Source.EngineL.Core.SinglePlayerApp):
 
         try:
             Source.EngineL.Gameplay.register_entity_classes(self)
-
-            Source.Habour.register_entity_classes(self)
-            Source.Hut.register_entity_classes(self)
-            Source.Ladder.register_entity_classes(self)
-            Source.Minigame.register_entity_classes(self)
-            Source.Mountain.register_entity_classes(self)
-            Source.Roads.register_entity_classes(self)
-            Source.Village.register_entity_classes(self)
-            Source.WindTurbine.register_entity_classes(self)
 
             self.restore_world()
 

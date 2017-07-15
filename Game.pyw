@@ -1,9 +1,8 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!--
-A dialogue which triggers when Ivy talks to Gerrit to tell him that she found the copper coil.
+#!/usr/bin/python3
+"""
+EngineL Launch Script
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
-Copyright (C) 2017 David "Flummi3" Waelsch
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,15 +14,10 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-<scene>
-    <text>"Ich hab die Spule gefunden!"</text>
-    <delay time="1500" />
-    <text>"Sehr schön! Du kannst sie jetzt in das Windrad einsetzen. Steht der Wegweiser noch vor deiner Hütte?"</text>
-    <delay time="3000" />
-    <text>"Ja! Wieso fragst du?"</text>
-    <delay time="1500" />
-    <text>"Dort könntest du das reparierte Windrad aufstellen."</text>
-    <delay time="2000" />
-    <text>"Super, danke. Ich gehe direkt los."</text>
-</scene>
+"""
+import Source
+
+if __name__ == "__main__":
+    import sys
+    GAME_INSTANCE = Source.Game(sys.argv)
+    sys.exit(GAME_INSTANCE.exec_())

@@ -21,7 +21,7 @@ from PyQt5.QtCore import Qt, QCoreApplication, QObject, pyqtSignal, QEvent
 from PyQt5.QtGui import QColor
 from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTextEdit, QLineEdit
 from PyQt5.QtWidgets import QMenuBar, QPushButton
-from Source.EngineL import Core, Scene
+from Source.EngineL import Core
 
 class CommandLine(QLineEdit):
     """
@@ -554,7 +554,6 @@ class Player(Core.Entity):
         self.get_window().show_text(self.parent().generate_description())
         if self.get_state("first run") == 1:
             self.set_state("first run", 0)
-            Scene.XMLScene("Prologue", self).play()
 
     def update_window_title(self):
         """
