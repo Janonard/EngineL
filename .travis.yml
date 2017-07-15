@@ -3,5 +3,5 @@ language: python
 python:
   - "3.5"
   - "3.6"
-install: "pip3 install PyQt5"
+install: "pip3 install PyQt5 pytest-xvfb"
 script: pytest

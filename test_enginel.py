@@ -24,4 +24,4 @@ def test_startup():
     """
     print("HI!")
     game_instance = Test.SimpleTester.StartTestApp(sys.argv)
-    #assert not bool(game_instance.exec_())
+    assert not bool(game_instance.exec_())
