@@ -1,4 +1,3 @@
-# coding=UTF-8
 """
 All classes that extend the Core module to a playable game are found in the Gameplay module.
 

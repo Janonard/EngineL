@@ -1,4 +1,3 @@
-# coding=UTF-8
 """
 The Core module contains the very core classes required by every game.
 
