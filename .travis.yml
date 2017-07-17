@@ -3,10 +3,6 @@ language: python
 python:
   - "3.6"
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install doxygen
-
 install:
   - pip3 install PyQt5 pytest-xvfb
 
@@ -14,7 +10,9 @@ script:
   - pytest
 
 after_success:
- - doxygen Doxyfile
+  - sudo apt-get update
+  - sudo apt-get install doxygen
+  - doxygen Doxyfile
 
 deploy:
   provider: pages
