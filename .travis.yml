@@ -10,14 +10,16 @@ before_install:
 install:
   - pip3 install PyQt5 pytest-xvfb
 
-script: 
-  - doxygen Doxyfile
+script:
   - pytest
+
+after_success:
+ - doxygen Doxyfile
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $DOC_PAGES_TOKEN
   local_dir: docs/html/
-  repo: git@github.com:Janonard/EngineL-docs.git
+  repo: Janonard/EngineL-docs
   target_branch: master
