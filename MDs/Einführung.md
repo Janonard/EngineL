@@ -61,4 +61,4 @@ Wenn Sie das Spiel aber jetzt starten, werden Sie sehen, dass man noch nicht zu 
         </Place>
     </safe>
 
-Damit sind wir auch schon fertig! Am besten machen Sie jetzt mit den @ref events weiter.
+Damit sind wir auch schon fertig! Am besten machen Sie jetzt mit den @ref events oder der @ref resourcehandling weiter.

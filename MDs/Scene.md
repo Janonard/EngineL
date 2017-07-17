@@ -1,4 +1,4 @@
-# Szenendesign {#scene}
+# Szenen {#scene}
 
 Hier sind ist eine Komplettübersicht, wie man Szenen in EngineL erstellt und nutzt und was man mit
 ihnen erzeugen kann.
@@ -7,7 +7,7 @@ Jede Szene ist in einer XML-Datei im Unterordner `Resources/Scenes` abgelegt und
 abgerufen. Möchte man aus dem Spiel heraus eine Szene aufrufen, muss man zuerst das Szenen-Modul
 importieren und dann die Szene erstellen und starten:
 
-    import Source.EngineL.Scene as Scene
+    import EngineL.Scene as Scene
 
     Scene.XMLScene("Test", player).play()
 

@@ -50,5 +50,4 @@ Jetzt kommt der interessante Teil: Die Möglichkeit, auf Aktionen des Spielers z
 
 Die Methode `on_used` wird aufgerufen, wenn der Spieler den Befehl "benutze Kaktus" anwendet. Der `user` ist dabei der, der den Befehl ausgeführt hat, was im Normalfall der Spielert ist. Wird also der Kaktus benutzt, kriegt der Spieler den oben genannten Text ausgegeben. Probieren Sie es ruhig aus!
 
-Das sollte erst einmal reichen. Durchsuchen Sie die Dokumentation des Quellcodes, um andere Interaktionsarten zu finden!
-        
+Weitere Möglichkeiten, Ihren Code zu erweitern, finden Sie in der [Dokumentation](https://janonard.github.io/EngineL-docs/): Neben dem schon verwendeten [`on_used`](https://janonard.github.io/EngineL-docs/classEngineL_1_1Core_1_1Entity.html#aa45c987efe03adb3037fccb66d5c8d69) ist auch [`on_transfer`](https://janonard.github.io/EngineL-docs/classEngineL_1_1Core_1_1Entity.html#ab91a29dd97d404d093899f77a209eb2f) und [`on_game_launched`](https://janonard.github.io/EngineL-docs/classEngineL_1_1Core_1_1Entity.html#aff2b9c988f98888b5460c35c715149ec) interessant. EngineL bietet übrigens auch die Möglichkeit, Dialoge bzw. geskriptete \ref scene wiederzugeben.
