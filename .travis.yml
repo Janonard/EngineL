@@ -1,7 +1,23 @@
 dist: trusty
 language: python
 python:
-  - "3.5"
   - "3.6"
-install: "pip3 install PyQt5 pytest-xvfb"
-script: pytest
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install doxygen
+
+install:
+  - pip3 install PyQt5 pytest-xvfb
+
+script: 
+  - doxygen Doxyfile
+  - pytest
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $DOC_PAGES_TOKEN
+  local_dir: docs/html/
+  repo: git@github.com:Janonard/EngineL-docs.git
+  target_branch: master
