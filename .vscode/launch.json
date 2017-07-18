@@ -8,7 +8,7 @@
             "stopOnEntry": false,
             "pythonPath": "${config:python.pythonPath}",
             "module": "pytest",
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceRoot}/Test",
             "env": {},
             "envFile": "${workspaceRoot}/.env",
             "debugOptions": [

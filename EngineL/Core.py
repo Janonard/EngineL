@@ -22,6 +22,8 @@ from xml.etree import ElementTree
 from PyQt5.QtCore import QObject, Qt
 from PyQt5.QtWidgets import QApplication, QErrorMessage
 
+RESOURCES_FOLDER = "./Resources/"
+
 class StringResourceManager(QObject):
     """
     The StringResourceManager manages the strings used by the game. At startup, it loads them from
@@ -32,7 +34,7 @@ class StringResourceManager(QObject):
         QObject.__init__(self, parent)
 
         try:
-            self.tree = ElementTree.parse("Resources/strings.xml")
+            self.tree = ElementTree.parse(RESOURCES_FOLDER + "strings.xml")
         except (FileNotFoundError, ElementTree.ParseError) as exception:
             parent.crash(str(exception))
 
@@ -816,7 +818,7 @@ class SinglePlayerApp(QApplication):
         """
         return self.entity_classes_register.get(name)
 
-    def save_world(self):
+    def save_world(self, save_path=None):
         """
         This constant method saves the complete state of the world into an XML file located in
         "Resources/save.xml" if saving wasn't disabled by the '-n' flag.
@@ -828,9 +830,12 @@ class SinglePlayerApp(QApplication):
                 if issubclass(child.__class__, Entity):
                     child.to_etree_element(tree.getroot())
 
-            tree.write("Resources/save.xml", encoding="UTF-16", xml_declaration=True)
+            if save_path is None:
+                save_path = RESOURCES_FOLDER + "save.xml"
 
-    def restore_world(self):
+            tree.write(save_path, encoding="UTF-16", xml_declaration=True)
+
+    def restore_world(self, save_path=None):
         """
         This non-constant method restores the complete world from an XML file located in
         "Resources/save.xml". If this file does not exist, it tries to read from
@@ -838,9 +843,11 @@ class SinglePlayerApp(QApplication):
         Also, it may raise any kind of exception if something in the process went wrong. If this is
         the case, the world will be in a valid but changed state.
         """
-        save_path = "Resources/save.xml"
-        if not os.path.exists(save_path):
-            save_path = "Resources/world.xml"
+        if save_path is None:
+            save_path = RESOURCES_FOLDER + "save.xml"
+            if not os.path.exists(save_path):
+                save_path = RESOURCES_FOLDER + "world.xml"
+        
         tree = ElementTree.parse(save_path)
 
         for child in list(tree.getroot()):
