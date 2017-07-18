@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Test
 
+'''
 def test_startup():
     """
     This test starts the game and looks if it works.
@@ -26,6 +27,7 @@ def test_startup():
     game_instance.quit()
     game_thread.join()
     assert True
+'''
 
 def test_class_lookup():
     """
