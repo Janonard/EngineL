@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import Test
 
-'''
 def test_startup():
     """
     This test starts the game and looks if it works.
@@ -27,7 +26,6 @@ def test_startup():
     game_instance.quit()
     game_thread.join()
     assert True
-'''
 
 def test_class_lookup():
     """
@@ -38,7 +36,7 @@ def test_class_lookup():
     game_instance = Test.EngineL.Core.SinglePlayerApp(Test.sys.argv)
     EngineL.Gameplay.register_entity_classes(game_instance)
     assert game_instance.lookup_entity_class("Player") == EngineL.Gameplay.Player
-'''
+
 def test_rsm():
     """
     This test checks the functionalities of the string resource manager.
@@ -52,4 +50,3 @@ def test_rsm():
     result = "EngineL, Das geht nicht!"
 
     assert result == rsm.decode_string(key_text)
-'''

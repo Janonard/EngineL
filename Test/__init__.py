@@ -21,4 +21,4 @@ import threading
 import EngineL.Core
 import Test.test_app
 
-EngineL.Core.RESOURCES_FOLDER = "../Resources/"
+#EngineL.Core.RESOURCES_FOLDER = "../Resources/"

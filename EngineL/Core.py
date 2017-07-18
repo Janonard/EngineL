@@ -22,8 +22,6 @@ from xml.etree import ElementTree
 from PyQt5.QtCore import QObject, Qt
 from PyQt5.QtWidgets import QApplication, QErrorMessage
 
-RESOURCES_FOLDER = "./Resources/"
-
 class StringResourceManager(QObject):
     """
     The StringResourceManager manages the strings used by the game. At startup, it loads them from
@@ -34,7 +32,7 @@ class StringResourceManager(QObject):
         QObject.__init__(self, parent)
 
         try:
-            self.tree = ElementTree.parse(RESOURCES_FOLDER + "strings.xml")
+            self.tree = ElementTree.parse("./Resources/" + "strings.xml")
         except (FileNotFoundError, ElementTree.ParseError) as exception:
             parent.crash(str(exception))
 
@@ -831,7 +829,7 @@ class SinglePlayerApp(QApplication):
                     child.to_etree_element(tree.getroot())
 
             if save_path is None:
-                save_path = RESOURCES_FOLDER + "save.xml"
+                save_path = "./Resources/" + "save.xml"
 
             tree.write(save_path, encoding="UTF-16", xml_declaration=True)
 
@@ -844,9 +842,9 @@ class SinglePlayerApp(QApplication):
         the case, the world will be in a valid but changed state.
         """
         if save_path is None:
-            save_path = RESOURCES_FOLDER + "save.xml"
+            save_path = "./Resources/" + "save.xml"
             if not os.path.exists(save_path):
-                save_path = RESOURCES_FOLDER + "world.xml"
+                save_path = "./Resources/" + "world.xml"
         
         tree = ElementTree.parse(save_path)
 
