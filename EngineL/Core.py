@@ -176,10 +176,10 @@ class Entity(QObject):
         else:
             if not subject in self.children():
                 return False
-            parent = self
-            while not parent.get_is_place():
-                parent = parent.parent()
-            return parent == target or parent.findChild(Entity, target.objectName()) is not None
+            place = self
+            while not place.get_is_place():
+                place = place.parent()
+            return place == target or place.findChild(Entity, target.objectName()) is not None
 
     def check_transfer_as_target(self, subject):
         """
@@ -206,29 +206,6 @@ class Entity(QObject):
             if issubclass(child.__class__, Entity):
                 child.on_game_launched()
 
-
-    def talk_to(self, target_name):
-        """
-        This non-constant method starts a conversation with another entity by calling it's
-        on_talk_to method. Returns True if the conversation was started and False if not and nothing
-        will be changed.
-        """
-        place = self
-        while not place.is_place:
-            place = place.parent()
-            if place is None:
-                return False
-
-        target = None
-        if place.objectName() == target_name:
-            target = place
-        else:
-            target = place.findChild(Entity, target_name)
-        if target is None:
-            return False
-
-        return target.on_talk_to(self) is not self
-
     def on_talk_to(self, other_entity):
         """
         When an entity, usually the player, wants to talk to another entity, it calls this
@@ -243,9 +220,9 @@ class Entity(QObject):
         This non-constant, abstract method executes the tasks that the user abstractly does with
         ourselves and an optional other entity and returns whether this was successfull or not.
 
-        At default, it has two modes: If self.activly_usable is True, it will try to pass the
-        on_used to the other_entity and will return it's return value. If this did not work or
-        self.activly_usable is False, it will return False.
+        At default, it has two modes: If the other_entity is not None, is activly_usable and we are
+        not, it will try to pass the on_used-event to the other_entity and will return it's return
+        value. If all of this is not the case, it will return False.
 
         One example on how this may be overriden in a usefull way: The user wants to combine
         ourselves with another entity to create a new one. This method would check whether the other

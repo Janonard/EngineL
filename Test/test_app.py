@@ -1,5 +1,5 @@
 """
-EngineL test script
+This module tests the capabilites of the core app and the string resource manager.
 
 Copyright (C) 2017 Jan-Oliver "Janonard" Opdenhövel
 

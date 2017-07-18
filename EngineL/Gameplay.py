@@ -448,7 +448,7 @@ class GameplayParser(QObject):
         creates the product and deletes the old entities, in this order. If anything went wrong in
         this process, it tells the user that he/she messed up and ends without changing anything.
         """
-        # Get the whole argument text
+        # Get the whole argument text.
         argument = self.get_argument()
 
         # Find the combination argument separator, usually 'with'.
@@ -464,12 +464,12 @@ class GameplayParser(QObject):
         arg_a_name = str()
         arg_b_name = str()
         if separator_position == -1:
-            # If there is only one argument, patch it's name together
+            # If there is no separator and therefore only one argument, patch the argument together.
             for word in argument[0:-1]:
                 arg_a_name += word + " "
             arg_a_name += argument[-1]
         else:
-            # If there are two arguments, patch both names together
+            # If there are two arguments, patch both names together.
             for word in argument[0:separator_position-1]:
                 arg_a_name += word + " "
             arg_a_name += argument[separator_position-1]
@@ -478,7 +478,7 @@ class GameplayParser(QObject):
                 arg_b_name += word + " "
             arg_b_name += argument[len(argument)-1]
 
-            # Find entity B, which is only if an entity B is mentioned
+            # Find entity B
             arg_b = self.parent().parent().findChild(Core.Entity, arg_b_name)
             if arg_b is None:
                 text = "${core.gameplayParser.invalidTargetMessage}"
@@ -492,7 +492,7 @@ class GameplayParser(QObject):
             self.window.show_text(text)
             return
 
-        # Call the player's "use" method.
+        # Call entity A's "on_used" method.
         if not arg_a.on_used(self.parent(), arg_b):
             text = "${core.gameplayParser.genericError}"
             self.window.show_text(text)
@@ -505,7 +505,13 @@ class GameplayParser(QObject):
         """
         target_name = self.get_argument_as_string()
 
-        if not self.parent().talk_to(target_name):
+        target = self.parent().parent().findChild(Core.Entity, target_name)
+        if target is None:
+            text = "${core.gameplayParser.invalidTargetMessage}"
+            self.window.show_text(text)
+            return
+
+        if not self.parent().talk_to(target):
             self.window.show_text("${core.gameplayParser.genericError}")
 
 class Player(Core.Entity):
