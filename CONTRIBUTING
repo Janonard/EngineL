@@ -32,6 +32,8 @@ Die Quests für EngineL können Sie sich in etwa so vorstellen wie Quests in ein
 
 Bei einer Quest ist immer angegeben, was genau Sie machen sollen und wie Sie am Besten vorgehen können. Wenn zum Beispiel in einer Klasse eine neue Methode gebraucht wird, steht in der Quest genau drin, was diese Methode tun soll.
 
+Ebenfalls gibt es sogenannte Meta-Quests: Das sind Quest, für die man weitere Quests oder Vorschläge erstellen muss, zum Beispiel wenn ein Konzept ausgearbeitet werden soll oder eine Aufgabe eine Ansammlung an Unteraufgaben ist.
+
 Quests bieten Ihnen auch eine gute Möglichkeit in das Projekt einzusteigen, da zu jeder Änderung und jedem neuen Feature eine Quest erstellt wird, Sie nicht unbedingt vollständige Kenntniss des Quelltextes benötigen und genau vorgegeben ist, was Sie tun müssen. Nehmen Sie sich ruhig die Zeit, die Sie brauchen und wenn eine Aufgabe für Sie zu schwierig ist, können Sie diese auch wieder abgeben oder mit Anderen zusammen bearbeiten.
 
 Ein paar Dinge gibt es allerdings bei der Bearbeitung von Quests zu beachten:
