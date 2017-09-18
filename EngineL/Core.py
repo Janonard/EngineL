@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from collections import deque
 import os.path
 from xml.etree import ElementTree
-from PyQt5.QtCore import QObject, Qt
+from PyQt5.QtCore import QObject
 from PyQt5.QtWidgets import QApplication, QErrorMessage
 
 class StringResourceManager(QObject):
@@ -63,7 +63,7 @@ class StringResourceManager(QObject):
         """
         This constant method returns the string with the given key, which has to be formatted like
         "key.to.string". If pure_text is True, it will return the string as it is, otherwise, it
-        will add <b>-tags if the string has the attribute "bold":"True".
+        will add <b>-tags if the string has the attribute "bold"=="True".
         If the requested string could not be found, the game will crash.
         """
         try:
@@ -89,30 +89,30 @@ class StringResourceManager(QObject):
             res_string_end = complete_text.find("}")
 
             if res_string_begin != -1 and res_string_end != -1:
+
+                if res_string_begin > 0:
+                    new_text = complete_text[0:res_string_begin]
+                else:
+                    new_text = str()
+                
                 key = complete_text[res_string_begin+2:res_string_end]
                 try:
-                    middle_part = self.get_string(key, pure_text)
+                    new_text += self.get_string(key, pure_text)
                 except LookupError as err:
                     raise err
 
-                if res_string_begin > 0:
-                    first_part = complete_text[0:res_string_begin]
-                else:
-                    first_part = str()
-
                 if res_string_end+1 < len(complete_text):
-                    last_part = complete_text[res_string_end+1:len(complete_text)]
-                else:
-                    last_part = str()
+                    new_text += complete_text[res_string_end+1:len(complete_text)]
 
-                complete_text = first_part + middle_part + last_part
+                complete_text = new_text
+
             else:
                 continue_searching = False
         return complete_text
 
 def get_res_man():
     """
-    This constant method returns the current resources manager.
+    This function returns the current resources manager.
     """
     return QApplication.instance().get_res_man()
 
@@ -130,7 +130,7 @@ class Entity(QObject):
         self.gender = "n"
         self.show_article = True
         self.use_definite_article = False
-        self.activly_usable = False
+        self.actively_usable = False
 
     def transfer(self, targeted_parent):
         """
@@ -140,29 +140,30 @@ class Entity(QObject):
         """
         transfer_okay = True
         if self.parent() == targeted_parent:
-            transfer_okay = False
+            transfer_okay = False # We can not transfer to our current parent.
 
         if not self.check_transfer_as_subject(targeted_parent):
-            transfer_okay = False
+            transfer_okay = False # We do not want to be transfered.
 
         if self.parent() is not None:
             if not self.parent().check_transfer_as_parent(self, targeted_parent):
-                transfer_okay = False
+                transfer_okay = False # Our parent does not want us to be transfered.
 
         if targeted_parent is not None:
             if not targeted_parent.check_transfer_as_target(self):
-                transfer_okay = False
+                transfer_okay = False # Our target does not want us.
 
         if transfer_okay:
             old_parent = self.parent()
             self.setParent(targeted_parent)
             QApplication.instance().on_transfer(self, old_parent, targeted_parent)
+        
         return transfer_okay
 
     def check_transfer_as_subject(self, targeted_parent):
         """
-        This semi-abstract, constant method which checks a planned transfer from the point-of-view
-        of the entity that should be transfered. At default, it returns True.
+        This semi-abstract, constant method checks a planned transfer from the point-of-view of the
+        entity that should be transfered. At default, it returns True.
         """
         return True
 
@@ -183,7 +184,7 @@ class Entity(QObject):
 
     def check_transfer_as_target(self, subject):
         """
-        A semi-abstract constant method which checks a planned transfer from the point of view of
+        This semi-abstract constant method checks a planned transfer from the point-of-view of
         the targeted parent. At default, it returns True.
         """
         return True
@@ -191,7 +192,9 @@ class Entity(QObject):
     def on_transfer(self, subject, parent, target):
         """
         This semi-abstract method gets called when an entity in the game gets transfered from it's
-        parent to a target. At default, it calles on_transfer to our children.
+        parent to a target. At default, it calles on_transfer to our children. You should always 
+        call the parent's implementation of this method if you want your children to get the event
+        too.
         """
         for child in self.children():
             if issubclass(child.__class__, Entity):
@@ -199,8 +202,9 @@ class Entity(QObject):
 
     def on_game_launched(self):
         """
-        This semi-abstract method gets only called when the game has started. At default, it only
-        passes the event to our children, but I can override it in any other way.
+        This semi-abstract method gets called when the game has started. At default, it only passes
+        the event to our children. You should always call the parent's implementation of this method
+        if you want your children to get the event too.
         """
         for child in self.children():
             if issubclass(child.__class__, Entity):
@@ -220,8 +224,8 @@ class Entity(QObject):
         This non-constant, abstract method executes the tasks that the user abstractly does with
         ourselves and an optional other entity and returns whether this was successfull or not.
 
-        At default, it has two modes: If the other_entity is not None, is activly_usable and we are
-        not, it will try to pass the on_used-event to the other_entity and will return it's return
+        At default, it has two modes: If the other_entity is not None and activly_usable, but we are
+        not, it will try to pass the on_used_event to the other_entity and will return it's return
         value. If all of this is not the case, it will return False.
 
         One example on how this may be overriden in a usefull way: The user wants to combine
@@ -230,15 +234,14 @@ class Entity(QObject):
         from the world tree.
         """
         if other_entity is not None:
-            if (not self.activly_usable) and other_entity.activly_usable:
+            if (not self.actively_usable) and other_entity.activly_usable:
                 return other_entity.on_used(user, self)
         return False
 
     def get_raw_description(self):
         """
-        This constant, semi-abstract method returns our current raw description which does not
-        include automated descriptions like the exit or inventory listing. At default, this method
-        always returns a single description, but it may be overriden at free will.
+        This constant method returns our current raw description, which does not include automated
+        descriptions like the exit and inventory listing.
         """
         return self.description
 
@@ -255,10 +258,9 @@ class Entity(QObject):
 
     def generate_inventory_list(self, empty_note=False):
         """
-        This constant method generates a list of our inventory (aka or children) for display
+        This constant method generates a list of our inventory (aka our children) for display
         purposes and returns it. If empty_note is True and we have no children, it will return a
-        note telling so, but if empty_note is False, it will return an empty string. If an internal
-        error occurs (e.g. a resource string could not be found), it will raise a LookupError.
+        note telling so, but if empty_note is False, it will return an empty string.
         """
         children = []
         for child in self.children():
@@ -266,35 +268,34 @@ class Entity(QObject):
                 children.append(child)
 
         string_key_root = "${core.entity.inventoryList."
-        try:
-            if len(children) == 0:
-                if empty_note:
-                    return ". " + self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
-                else:
-                    return str()
 
-            if self.is_place:
-                inventory_list = ". " + string_key_root + "placeBeginning} "
+        if len(children) == 0:
+            if empty_note:
+                return ". " + self.get_pronoun(upper=True) + string_key_root + "emptyEntity}"
             else:
-                inventory_list = ". " + self.get_pronoun(True) + " "
-                inventory_list += string_key_root + "entityBeginning} "
-            inventory_list += children[0].get_effective_article() + " "
-            inventory_list += "<b>" + children[0].objectName() + "</b>"
+                return str()
 
-            if len(children) > 2:
-                for child in children[1:len(children)-1]:
-                    inventory_list += string_key_root + "normalSeparator} "
-                    inventory_list += child.get_effective_article() + " "
-                    inventory_list += "<b>" + child.objectName() + "</b>"
+        if self.is_place:
+            inventory_list = ". " + string_key_root + "placeBeginning} "
+        else:
+            inventory_list = ". " + self.get_pronoun(True) + " "
+            inventory_list += string_key_root + "entityBeginning} "
 
-            if len(children) >= 2:
-                inventory_list += " " + string_key_root + "lastSeparator} "
-                inventory_list += children[len(children)-1].get_effective_article() + " "
-                inventory_list += "<b>" + children[len(children)-1].objectName() + "</b>"
+        inventory_list += children[0].get_effective_article() + " "
+        inventory_list += "<b>" + children[0].objectName() + "</b>"
 
-            return inventory_list
-        except LookupError as err:
-            raise err
+        if len(children) > 2:
+            for child in children[1:len(children)-1]:
+                inventory_list += string_key_root + "normalSeparator} "
+                inventory_list += child.get_effective_article() + " "
+                inventory_list += "<b>" + child.objectName() + "</b>"
+
+        if len(children) >= 2:
+            inventory_list += " " + string_key_root + "lastSeparator} "
+            inventory_list += children[len(children)-1].get_effective_article() + " "
+            inventory_list += "<b>" + children[len(children)-1].objectName() + "</b>"
+
+        return inventory_list
 
     def get_pronoun(self, upper=False):
         """
@@ -310,7 +311,7 @@ class Entity(QObject):
     def get_effective_article(self, upper=False):
         """
         This constant method returns a string containing the key to our article accounting our
-        shown_article and use_definite_article flags. This might even lead to an empty string as a
+        shown_article and use_definite_article flags, which might even lead to an empty string as a
         return value. If upper is True (default), it will return the upper-case version, if not,
         the lower-case one.
         """
@@ -357,9 +358,9 @@ class Entity(QObject):
 
     def to_etree_element(self, parent_element):
         """
-        This constant, semi-abstract method converts itself into a etree element, that will be saved
-        as an XML file, and returns it. Overrides should always call the parent's method and
-        modify the element they return. This way, all required information will be reserved.
+        This constant, semi-abstract method converts ourselves into an etree element and returns it.
+        Overrides should always call the parent's method and modify the element they return. This
+        way, all required information will be preserved.
         """
         element = ElementTree.Element(self.__class__.__name__)
 
@@ -411,7 +412,7 @@ class Entity(QObject):
         article_element = element.find("article")
         if article_element is not None:
             try:
-                o_show = article_element.attrib["shown"]
+                o_show = bool(article_element.attrib["shown"])
                 o_show = bool(o_show)
                 self.show_article = o_show
             except (TypeError, KeyError):
@@ -485,7 +486,7 @@ class Entity(QObject):
 
     def get_is_place(self):
         """
-        This constant method returns True if it's a place
+        This constant method returns True if it's a place.
         """
         return self.is_place
     
@@ -501,6 +502,7 @@ class Entity(QObject):
         This non-constant method sets our `is_hidden` flag: If it is True, we won't be listed in
         inventory or exit listings.
         """
+        self.hidden = is_hidden
 
     def get_gender(self):
         """
@@ -532,12 +534,13 @@ class Entity(QObject):
         """
         This constant method returns True if we are activly usable and False if not.
         """
-        return self.activly_usable
+        return self.actively_usable
 
 class StaticEntity(Entity):
     """
     This so-called static entity won't move ever since it denies every transfer.
     """
+
     def __init__(self, parent=None):
         Entity.__init__(self, parent)
 
@@ -603,7 +606,7 @@ class Place(Entity):
             for place in self.connected_places:
                 if place.objectName() in object_names:
                     found_places.append(place)
-            if len(found_places) != object_names:
+            if len(found_places) != len(object_names):
                 raise LookupError("Could not find all requested elements!")
             return found_places
 

@@ -37,16 +37,16 @@ def test_class_lookup():
     EngineL.Gameplay.register_entity_classes(game_instance)
     assert game_instance.lookup_entity_class("Player") == EngineL.Gameplay.Player
 
-def test_rsm():
+def test_srm():
     """
     This test checks the functionalities of the string resource manager.
     """
     game_instance = Test.EngineL.Core.SinglePlayerApp(Test.sys.argv)
-    rsm = Test.EngineL.Core.get_res_man()
-    assert rsm is not None
+    srm = Test.EngineL.Core.get_res_man()
+    assert srm is not None
 
     key_text = "${core.windowTitle}${core.entity.inventoryList.normalSeparator} "
     key_text += "${core.gameplayParser.genericError}"
     result = "EngineL, Das geht nicht!"
 
-    assert result == rsm.decode_string(key_text)
+    assert result == srm.decode_string(key_text)
