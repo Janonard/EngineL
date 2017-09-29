@@ -1,23 +1,22 @@
 dist: trusty
 language: python
 python:
-  - "3.6"
-
+- '3.6'
 install:
-  - pip3 install PyQt5 pytest-xvfb
-
+- pip3 install PyQt5 pytest-xvfb
 script:
-  - pytest
-
+- pytest
 after_success:
-  - sudo apt-get update
-  - sudo apt-get install doxygen
-  - doxygen Doxyfile
-
+- sudo apt-get update
+- sudo apt-get install doxygen
+- doxygen Doxyfile
 deploy:
   provider: pages
   skip_cleanup: true
-  github_token: $DOC_PAGES_TOKEN
+  github_token: "$DOC_PAGES_TOKEN"
   local_dir: docs/html/
   repo: Janonard/EngineL-docs
   target_branch: master
+notifications:
+  slack:
+    secure: dAT2X2siGlKPGwcn1Ro51JTpF0RRgkL8UgJDiY5dL5xaSRKFvG0harMzeSPkDsXocfpyMXaK/w2DMFEx1qH41dNM22FoQlrmIs050BKEGIRVTXP4GY3Gs4rCDyFnIK+XXCal6o1Q24hXOroC/teMCLXP7rQLjupDgLQ53492s7XmtAtvoyoJwWO7G8TqDSnNweKe1kVzvH8nigGrsZARlE46GKhNSQfFEtDt8taOkwps5ftRPJmdn/c0K2P35wHqPSKWkr48MKFZbEfYynN6FMCRxUGTmFV1mziXFYlzl9RIrlC6wcHa764nMFwU9krEMDpexLIumpi3qFY1OF1JrYeTQwM/7u65ynCCsj9namZJIS10EdbrGRDbCs7shj4le9L+S1WNkWEkwHIiXExFA1gx0yKp6jmuXKDQ7BWYUJ2N5+rm6lJfDRxk7g22Tw1QOERNSTwRVcm969lwM+pUJkPNDbDR5GwEm29kBvlnGAYssXKFJVcC2JM8Hcplb6q1uj3fsoxrDNnu/5ecR/IZ0hGFbM9IBtggjh7UH6oGHZ0WnRaLaFj3B75fX8RTjNvF29xgtXrKgxooAb1I6Q8GUOIlRFAowP9q9xgknfNfN23k+tT8e7IMeljFtGLw4sG+IG8wXcdW+Etd6AfOh8l2LDjky2UTW0VfQ0gRGnfph1M=
