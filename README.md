@@ -16,4 +16,4 @@ Unsere [Dokumentation](https://janonard.github.io/EngineL-docs/) bietet eine umf
 
 ### Mitarbeiten
 
-EngineL braucht weitere Mitarbeiter, lesen Sie [hier](CONTRIBUTING.md), wie Sie mitmachen können.
+EngineL wird nicht weiter gepflegt oder entwickelt, Mitarbeit ist also leider nicht mehr möglich!
